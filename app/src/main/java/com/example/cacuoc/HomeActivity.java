@@ -5,6 +5,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import androidx.core.view.WindowInsetsCompat;
 public class HomeActivity extends AppCompatActivity {
     private MediaPlayer mediaPlayer;
     Button btnNewGame;
+    ImageView ivHd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +32,7 @@ public class HomeActivity extends AppCompatActivity {
         mediaPlayer.start();
 
         btnNewGame = (Button) findViewById(R.id.buttonNewGame);
+        ivHd = (ImageView) findViewById(R.id.imageViewHD) ;
         btnNewGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -37,6 +40,17 @@ public class HomeActivity extends AppCompatActivity {
                     mediaPlayer.pause();
                 }
                 Intent intent = new Intent(HomeActivity.this, SignInActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        ivHd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+                    mediaPlayer.pause();
+                }
+                Intent intent = new Intent(HomeActivity.this, GuideActivity.class);
                 startActivity(intent);
             }
         });

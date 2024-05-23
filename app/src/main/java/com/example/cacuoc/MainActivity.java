@@ -1,6 +1,7 @@
 package com.example.cacuoc;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -18,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ImageView imgHorse1, imgHorse2, imgHorse3, imgHorse4, imgBackground;
     private View finishLine;
-    private int[] positions = {30, 0, 0, 0};
+    private int[] positions = {0, 0, 0, 50};
     private Handler handler = new Handler();
     private Random random = new Random();
     private float finishX;
@@ -28,13 +29,15 @@ public class MainActivity extends AppCompatActivity {
     private int money;
     private int betAmount1, betAmount2, betAmount3, betAmount4;
     private boolean isHorse1Checked, isHorse2Checked, isHorse3Checked, isHorse4Checked;
-    private int fixedDistance = 50;
-
+    private int fixedDistance = 94;
+    private MediaPlayer mediaPlayer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        mediaPlayer = MediaPlayer.create(this, R.raw.sound1);
+        mediaPlayer.setLooping(true);
+        mediaPlayer.start();
         imgHorse1 = findViewById(R.id.imgHorse1);
         imgHorse2 = findViewById(R.id.imgHorse2);
         imgHorse3 = findViewById(R.id.imgHorse3);
@@ -60,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Glide.with(this).asGif().load(R.drawable.horsebgr).into(imgBackground);
+        Glide.with(this).asGif().load(R.drawable.bg2).into(imgBackground);
 
         startRace();
     }
@@ -89,32 +92,44 @@ public class MainActivity extends AppCompatActivity {
         public void run() {
             if (!raceFinished) {
                 List<Integer> winningHorses = new ArrayList<>();
-
+                List<Integer> losingHorses = new ArrayList<>();
+                Intent intent = new Intent(MainActivity.this, ResultActivity.class);
                 for (int i = 0; i < positions.length; i++) {
                     if (positions[i] < fixedDistance) {
                         int step = Math.abs(random.nextInt(maxStep));
                         positions[i] += step;
 
                         if (positions[i] >= fixedDistance && !winningHorses.contains(i)) {
-                            //fixedDistance -= maxStep;
+                            winningHorses.add(i);
                             raceFinished = true;
-                            winningHorses.add(i); // Thêm chỉ số của ngựa chiến thắng vào danh sách
-                            Intent intent = new Intent(MainActivity.this, ResultActivity.class);
-                            intent.putIntegerArrayListExtra("winningHorses", (ArrayList<Integer>) winningHorses);
-                            intent.putExtra("money", money);
-                            intent.putExtra("betAmountHorse1", betAmount1);
-                            intent.putExtra("betAmountHorse2", betAmount2);
-                            intent.putExtra("betAmountHorse3", betAmount3);
-                            intent.putExtra("betAmountHorse4", betAmount4);
-                            intent.putExtra("isCheckedHorse1", isHorse1Checked);
-                            intent.putExtra("isCheckedHorse2", isHorse2Checked);
-                            intent.putExtra("isCheckedHorse3", isHorse3Checked);
-                            intent.putExtra("isCheckedHorse4", isHorse4Checked);
-                            startActivity(intent);
-                            finish();
-                            return;
+
                         }
                     }
+                }
+
+                if (raceFinished) {
+                    for (int i = 0; i < positions.length; i++) {
+                        if (!winningHorses.contains(i)) {
+                            losingHorses.add(i);
+                        }
+                    }
+                    intent.putIntegerArrayListExtra("winningHorses", (ArrayList<Integer>) winningHorses);
+                    intent.putIntegerArrayListExtra("losingHorses", (ArrayList<Integer>) losingHorses);
+                    intent.putExtra("money", money);
+                    intent.putExtra("betAmountHorse1", betAmount1);
+                    intent.putExtra("betAmountHorse2", betAmount2);
+                    intent.putExtra("betAmountHorse3", betAmount3);
+                    intent.putExtra("betAmountHorse4", betAmount4);
+                    intent.putExtra("isCheckedHorse1", isHorse1Checked);
+                    intent.putExtra("isCheckedHorse2", isHorse2Checked);
+                    intent.putExtra("isCheckedHorse3", isHorse3Checked);
+                    intent.putExtra("isCheckedHorse4", isHorse4Checked);
+                    if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+                        mediaPlayer.pause();
+                    }
+                    startActivity(intent);
+                    finish();
+                    return;
                 }
 
                 runOnUiThread(() -> {

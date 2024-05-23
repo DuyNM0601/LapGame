@@ -1,12 +1,14 @@
 package com.example.cacuoc;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,12 +22,18 @@ public class BetActivity extends AppCompatActivity {
     private CheckBox cbHorse1, cbHorse2, cbHorse3, cbHorse4;
     private Button btnStartGame;
     private MediaPlayer mediaPlayer;
-
+    int moneyAfter = 0;
+    TextView txtMoney;
+    TextView txtStatus;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bet);
-
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
         mediaPlayer = MediaPlayer.create(this, R.raw.cacuocsound);
         mediaPlayer.setLooping(true);
         mediaPlayer.start();
@@ -39,7 +47,12 @@ public class BetActivity extends AppCompatActivity {
         cbHorse3 = findViewById(R.id.checkBox3);
         cbHorse4 = findViewById(R.id.checkBox4);
         btnStartGame = findViewById(R.id.buttonStartGame);
-
+        txtMoney = findViewById(R.id.textViewMoney);
+        txtStatus = findViewById(R.id.textViewError);
+        Intent intent = new Intent(BetActivity.this, MainActivity.class);
+        Intent intent1 = getIntent();
+        moneyAfter = intent1.getIntExtra("moneyAfter", 1000);
+        txtMoney.setText(moneyAfter + "");
         btnStartGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,8 +64,9 @@ public class BetActivity extends AppCompatActivity {
                 boolean isCheckedHorse2 = cbHorse2.isChecked();
                 boolean isCheckedHorse3 = cbHorse3.isChecked();
                 boolean isCheckedHorse4 = cbHorse4.isChecked();
-
-                Intent intent = new Intent(BetActivity.this, MainActivity.class);
+                Integer txtMoneyInt = Integer.parseInt(txtMoney.getText().toString());
+                int sum = 0;
+                sum = betAmountHorse1 +  betAmountHorse2 + betAmountHorse3 + betAmountHorse4;
                 intent.putExtra("betAmountHorse1", betAmountHorse1);
                 intent.putExtra("betAmountHorse2", betAmountHorse2);
                 intent.putExtra("betAmountHorse3", betAmountHorse3);
@@ -61,14 +75,18 @@ public class BetActivity extends AppCompatActivity {
                 intent.putExtra("isCheckedHorse2", isCheckedHorse2);
                 intent.putExtra("isCheckedHorse3", isCheckedHorse3);
                 intent.putExtra("isCheckedHorse4", isCheckedHorse4);
-                startActivity(intent);
+                if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+                    mediaPlayer.pause();
+                }
+                if(sum > txtMoneyInt) {
+                    txtStatus.setText("Không đủ tiền cược");
+                    txtStatus.setTextColor(Color.RED);
+                }
+                else  {
+                    startActivity(intent);
+                }
             }
         });
-
-        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
-            mediaPlayer.pause();
-        }
-
     }
 
     private int getBetAmount(EditText editText) {

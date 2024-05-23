@@ -13,16 +13,19 @@
         android:theme="@style/Theme.CaCuoc"
         tools:targetApi="31">
         <activity
+            android:name=".GuideActivity"
+            android:exported="false" />
+        <activity
             android:name=".SignUpActivity"
             android:exported="false" />
         <activity
             android:name=".SignInActivity"
             android:exported="false" />
-        <activity android:name=".HomeActivity" />
+        <activity android:name=".BetActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".ResultActivity" />
         <activity
-            android:name=".BetActivity"
+            android:name=".HomeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

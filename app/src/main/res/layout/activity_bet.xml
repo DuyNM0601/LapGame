@@ -9,11 +9,11 @@
     tools:context=".BetActivity">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textViewMoney"
         android:layout_width="220dp"
         android:layout_height="40dp"
         android:layout_marginTop="312dp"
-        android:text="Money: $1000"
+        android:text="1000"
         android:textAlignment="center"
         android:textColor="#FFC107"
         android:textSize="28sp"
@@ -63,7 +63,7 @@
         android:layout_marginTop="216dp"
         android:ems="10"
         android:hint="Best horse 3"
-        android:inputType="text"
+        android:inputType="number"
         android:textColor="#ffffff"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -120,7 +120,7 @@
         android:layout_marginTop="112dp"
         android:ems="10"
         android:hint="Bet horse 1"
-        android:inputType="text"
+        android:inputType="number"
         android:textColor="#ffffff"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -135,7 +135,7 @@
         android:layout_marginTop="104dp"
         android:ems="10"
         android:hint="Bet horse 2"
-        android:inputType="text"
+        android:inputType="number"
         android:textColor="#ffffff"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -160,7 +160,7 @@
         android:layout_marginTop="208dp"
         android:ems="10"
         android:hint="Bet horse 4"
-        android:inputType="text"
+        android:inputType="number"
         android:textColor="#ffffff"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -185,7 +185,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/textViewError"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="316dp"
