@@ -1,0 +1,68 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/imgBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:alpha="0.5"
+        android:src="@drawable/horsebgr" />
+
+    <ImageView
+        android:id="@+id/imgHorse1"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="96dp"
+        android:layout_marginEnd="784dp"
+        android:src="@drawable/horsevip" />
+
+    <ImageView
+        android:id="@+id/imgHorse2"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="164dp"
+        android:layout_marginEnd="784dp"
+        android:src="@drawable/horsevip" />
+
+    <ImageView
+        android:id="@+id/imgHorse3"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="236dp"
+        android:layout_marginEnd="786dp"
+        android:src="@drawable/horsevip" />
+
+    <ImageView
+        android:id="@+id/imgHorse4"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="310dp"
+        android:layout_marginEnd="781dp"
+        android:src="@drawable/horsevip" />
+
+    <View
+        android:id="@+id/finishLine"
+        android:layout_width="5dp"
+        android:layout_height="300dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="85dp"
+        android:layout_marginEnd="89dp"
+        android:background="#FF0000" />
+</RelativeLayout>
